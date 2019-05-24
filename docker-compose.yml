@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  app:
+    container_name: app
+    build: .
+    depends_on:
+      - database_peewee
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+
+  database_peewee:
+    container_name: database_peewee
+    image: mysql:5.7
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: teste
+    volumes:
+      - data-volume:/var/lib/mysql
+
+volumes:
+  data-volume:
